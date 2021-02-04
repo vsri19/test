@@ -1,21 +1,36 @@
-image: node:carbon
+image: docker:latest
+services:
+- docker:dind
 
 stages:
-  - build
-  - test
+- build
+- test
+- release
 
-cache:
-  paths:
-    - node_modules/
+variables:
+  TEST_IMAGE: registry.gitlab.com/dinesh.kuswah/hello_hapi:$CI_COMMIT_REF_NAME
+  RELEASE_IMAGE: registry.gitlab.com/dinesh.kuswah/hello_hapi:latest
 
-install_dependencies:
+before_script:
+  - docker login -u dinesh.kuswah@gmail.com -p 22Evz3nUHoVPSQNngqnF registry.gitlab.com/dinesh.kuswah
+ 
+ build:
   stage: build
   script:
-    - npm install
-  artifacts:
-    paths:
-      - node_modules/
+    - docker build --pull -t $TEST_IMAGE .
+    - docker push $TEST_IMAGE
 
-test_with_lab:
+test:
   stage: test
-  script: npm test
+  script:
+    - docker pull $TEST_IMAGE
+    - docker run $TEST_IMAGE npm test
+
+release:
+  stage: release
+  script:
+    - docker pull $TEST_IMAGE
+    - docker tag $TEST_IMAGE $RELEASE_IMAGE
+    - docker push $RELEASE_IMAGE
+  only:
+    - master
