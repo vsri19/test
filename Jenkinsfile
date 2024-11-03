@@ -1,44 +1,12 @@
 pipeline {
-  agent  {
-
-  docker {
-    image 'docker:latest'
-  }
-}
-
-environment {
-  TEST_IMAGE = 'registry.gitlab.com/dinesh.kuswah/hello_hapi:"$CI_COMMIT_REF_NAME"'
-  RELEASE_IMAGE = 'registry.gitlab.com/dinesh.kuswah/hello_hapi:latest'
-}
-
-stages {
-  stage('Setup') {
-    steps {
-      bat 'docker login -u dinesh.kuswah@gmail.com -p 22Evz3nUHoVPSQNngqnF registry.gitlab.com/dinesh.kuswah'
+    agent {
+        docker { image 'node:22.11.0-alpine3.20' }
     }
-  }
-
-  stage('build') {
-    steps {
-      bat 'docker build --pull -t $TEST_IMAGE .'
-      bat 'docker push $TEST_IMAGE'
+    stages {
+        stage('Test') {
+            steps {
+                sh 'node --version'
+            }
+        }
     }
-  }
-  stage('test') {
-    steps {
-      bat 'docker pull $TEST_IMAGE'
-      bat 'docker run $TEST_IMAGE npm test'
-    }
-  }
-  stage('release') {
-    when {
-      branch 'master'
-    }
-    steps {
-      bat 'docker pull $TEST_IMAGE'
-      bat 'docker tag $TEST_IMAGE $RELEASE_IMAGE'
-      bat 'docker push $RELEASE_IMAGE'
-      }
-    }
-  }
 }
