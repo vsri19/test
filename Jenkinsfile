@@ -3,6 +3,7 @@ pipeline {
 
   docker {
     image 'docker:latest'
+    args '-v /workspace/test-pipeline:/workspace/test-pipeline -w /workspace/test-pipeline'
   }
 }
 
