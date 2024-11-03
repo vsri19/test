@@ -14,7 +14,7 @@ environment {
 stages {
   stage('Setup') {
     steps {
-      sh ''
+      bat ''
       'docker login -u dinesh.kuswah@gmail.com -p 22Evz3nUHoVPSQNngqnF registry.gitlab.com/dinesh.kuswah'
       ''
     }
@@ -22,20 +22,20 @@ stages {
 
   stage('build') {
     steps {
-      sh ''
+      bat ''
       'docker build --pull -t $TEST_IMAGE .'
       ''
-      sh ''
+      bat ''
       'docker push $TEST_IMAGE'
       ''
     }
   }
   stage('test') {
     steps {
-      sh ''
+      bat ''
       'docker pull $TEST_IMAGE'
       ''
-      sh ''
+      bat ''
       'docker run $TEST_IMAGE npm test'
       ''
     }
@@ -45,13 +45,13 @@ stages {
       branch 'master'
     }
     steps {
-      sh ''
+      bat ''
       'docker pull $TEST_IMAGE'
       ''
-      sh ''
+      bat ''
       'docker tag $TEST_IMAGE $RELEASE_IMAGE'
       ''
-      sh ''
+      bat ''
       'docker push $RELEASE_IMAGE'
       ''
       }
