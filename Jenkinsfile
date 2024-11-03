@@ -54,6 +54,7 @@ stages {
       sh ''
       'docker push $RELEASE_IMAGE'
       ''
+      }
     }
   }
 }
