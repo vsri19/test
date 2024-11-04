@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
-                sh '''docker login -u dinesh.kuswah@gmail.com -p glpat-7sFcCf8yeCNxrqGqkT5R registry.gitlab.com/dinesh.kuswah --password-stdin'''
+                sh '''docker login -u dinesh.kuswah@gmail.com -p glpat-7sFcCf8yeCNxrqGqkT5R registry.gitlab.com/dinesh.kuswah'''
             }
         }
 
