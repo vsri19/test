@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-        TEST_IMAGE = 'registry.gitlab.com/dinesh.kuswah/hello_hapi:"$CI_COMMIT_REF_NAME"'
+        TEST_IMAGE = 'registry.gitlab.com/dinesh.kuswah/hello_hapi:master'
         RELEASE_IMAGE = 'registry.gitlab.com/dinesh.kuswah/hello_hapi:latest'
         DOCKER_CONFIG= '$HOME/.docker'
         HOME = '/root'
