@@ -6,14 +6,14 @@ pipeline {
     environment {
         TEST_IMAGE = 'registry.gitlab.com/dinesh.kuswah/hello_hapi:"$CI_COMMIT_REF_NAME"'
         RELEASE_IMAGE = 'registry.gitlab.com/dinesh.kuswah/hello_hapi:latest'
-        HOME = '/var/jenkins_home'
+        DOCKER_CONFIG=$HOME/.docker
     }
 
     stages {
         stage('Setup') {
             steps {
                 sh 'mkdir -p $HOME/.docker'
-                sh '''docker login -u dinesh.kuswah@gmail.com -p glpat-7sFcCf8yeCNxrqGqkT5R registry.gitlab.com/dinesh.kuswah'''
+                sh '''docker login -u dinesh.kuswah@gmail.com -p glpat-7sFcCf8yeCNxrqGqkT5R registry.gitlab.com/dinesh.kuswah --password-stdin'''
             }
         }
 
