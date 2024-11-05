@@ -9,15 +9,12 @@ pipeline {
     environment {
         TEST_IMAGE = 'registry.gitlab.com/dinesh.kuswah/hello_hapi:master'
         RELEASE_IMAGE = 'registry.gitlab.com/dinesh.kuswah/hello_hapi:latest'
-        DOCKER_CONFIG= '$HOME/.docker'
-        HOME = '/root'
     }
 
     stages {
         stage('Setup') {
             steps {
-                sh 'mkdir -p $HOME/.docker'
-                sh '''docker login -u dinesh.kuswah@gmail.com -p glpat-7sFcCf8yeCNxrqGqkT5R registry.gitlab.com/dinesh.kuswah --password-stdin'''
+                sh '''docker login -u dinesh.kuswah@gmail.com -p glpat-7sFcCf8yeCNxrqGqkT5R registry.gitlab.com/dinesh.kuswah'''
             }
         }
 
