@@ -10,6 +10,7 @@ pipeline {
         TEST_IMAGE = 'registry.gitlab.com/dinesh.kuswah/hello_hapi:"$CI_COMMIT_REF_NAME"'
         RELEASE_IMAGE = 'registry.gitlab.com/dinesh.kuswah/hello_hapi:latest'
         DOCKER_CONFIG= '$HOME/.docker'
+        HOME = '/root'
     }
 
     stages {
