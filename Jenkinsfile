@@ -18,16 +18,10 @@ pipeline {
             }
         }
 
-        stage('build') {
-            steps {
-                sh '''docker build --pull -t $TEST_IMAGE .'''
-                sh '''docker push $TEST_IMAGE'''
-            }
-        }
         stage('test') {
             steps {
                 sh '''docker pull $TEST_IMAGE'''
-                sh '''docker run $TEST_IMAGE npm test'''
+                sh '''docker exec $TEST_IMAGE npm test'''
             }
         }
         stage('release') {
