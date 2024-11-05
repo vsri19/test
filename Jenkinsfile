@@ -1,6 +1,9 @@
 pipeline {
     agent {
-        docker { image 'docker:latest' }
+        docker { 
+            image 'docker:latest'
+            | args '-u root:root'
+        }
     }
 
     environment {
