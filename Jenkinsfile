@@ -1,11 +1,10 @@
 pipeline {
-    agent
+    agent {
         docker { 
             image 'docker:latest'
             args '-u root:root'
         }
     }
-
     environment {
         DOCKER_DRIVER = 'overlay2'
         NODE_IMAGE = 'node:latest'
