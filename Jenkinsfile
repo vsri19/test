@@ -2,14 +2,24 @@ pipeline {
     agent any 
 
     stages {
-        stage('build') {
+        stage('install_dependencies') {
             steps {
-                sh '''echo "Building the project..."'''
+                sh '''npm install'''
             }
         }
         stage('test') {
             steps {
-                sh '''echo "Running tests..."'''
+                sh '''npm test'''
+            }
+        }
+        stage('build') {
+            steps {
+                sh '''npm run build'''
+            }
+            post {
+                success {
+                    archiveArtifacts artifacts: 'dist/', allowEmptyArchive: true
+                }
             }
         }
     }
