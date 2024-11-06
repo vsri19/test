@@ -1,36 +1,13 @@
-image: docker:latest
-services:
-- docker:dind
-
 stages:
-- build
-- test
-- release
+  - build
+  - test
 
-variables:
-  TEST_IMAGE: registry.gitlab.com/dinesh.kuswah/hello_hapi:$CI_COMMIT_REF_NAME
-  RELEASE_IMAGE: registry.gitlab.com/dinesh.kuswah/hello_hapi:latest
-
-before_script:
-  - docker login -u dinesh.kuswah@gmail.com -p 22Evz3nUHoVPSQNngqnF registry.gitlab.com/dinesh.kuswah
- 
- build:
+build:
   stage: build
   script:
-    - docker build --pull -t $TEST_IMAGE .
-    - docker push $TEST_IMAGE
+    - echo "Building the project..."
 
 test:
   stage: test
   script:
-    - docker pull $TEST_IMAGE
-    - docker run $TEST_IMAGE npm test
-
-release:
-  stage: release
-  script:
-    - docker pull $TEST_IMAGE
-    - docker tag $TEST_IMAGE $RELEASE_IMAGE
-    - docker push $RELEASE_IMAGE
-  only:
-    - master
+    - echo "Running tests..."
