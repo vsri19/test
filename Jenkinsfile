@@ -2,23 +2,15 @@ pipeline {
     agent any
 
     stages {
-        stage('Install Dependencies') {
+        stage('Build') {
             steps {
-                // Install npm dependencies
-                script {
-                    echo 'Running npm install...'
-                    sh 'npm install'
-                }
+                echo 'Building the project...'
             }
         }
-    }
-
-    post {
-        success {
-            echo 'Build succeeded!'
-        }
-        failure {
-            echo 'Build failed.'
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+            }
         }
     }
 }
