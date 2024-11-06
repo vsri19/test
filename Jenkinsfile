@@ -1,25 +1,38 @@
-image: node:latest
+pipeline {
+    agent any
 
-stages:
-  - install
-  - test
+    stages {
+        stage('Install Dependencies') {
+            steps {
+                // Install npm dependencies
+                script {
+                    echo 'Running npm install...'
+                    sh 'npm install'
+                }
+            }
+        }
 
-cache:
-  paths:
-    - node_modules/
+        stage('Run Tests') {
+            steps {
+                // Run npm tests
+                script {
+                    echo 'Running npm test...'
+                    sh 'npm test'
+                }
+            }
+        }
+    }
 
-install_dependencies:
-  stage: install
-  script:
-    - npm install
-  artifacts:
-    paths:
-      - node_modules/
-    expire_in: 1 week
-
-run_tests:
-  stage: test
-  script:
-    - npm test
-  dependencies:
-    - install_dependencies
+    post {
+        always {
+            // Archive test results if available
+            junit '**/test-results.xml' // Modify this pattern based on where your tests output XML results
+        }
+        success {
+            echo 'Build succeeded!'
+        }
+        failure {
+            echo 'Build failed.'
+        }
+    }
+}
