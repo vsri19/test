@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('install_dependencies') {
             steps {
-                sh 'cd $WORKSPACE npm install'
+                sh 'npm install'
                 sh 'npm --version'
             }
         }
