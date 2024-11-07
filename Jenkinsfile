@@ -10,6 +10,7 @@ pipeline {
         stage('install_dependencies') {
             steps {
                 sh 'npm install'
+                sh 'npm --version'
             }
         }
         stage('build') {
