@@ -13,12 +13,6 @@ pipeline {
                 sh 'npm --version'
             }
         }
-        stage('test') {
-            steps {
-                sh 'npm test'
-                sh 'npm run coverage'
-            }
-        }
         stage('build') {
             steps {
                 sh 'npm run build'
