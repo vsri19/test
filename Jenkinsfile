@@ -8,6 +8,9 @@ pipeline {
 
     stages {
         stage('install_dependencies') {
+            when {
+                expression { env.CI_COMMIT_BRANCH == env.CI_DEFAULT_BRANCH }
+            }
             steps {
                 sh 'npm install'
                 sh 'npm --version'
